@@ -230,30 +230,30 @@ type IosArchive struct {
 func NewIosArchive(path string) (IosArchive, error) {
 	infoPlist := plistutil.PlistData{}
 	{
-		infoPlistPath := filepath.Join(path, "Info.plist")
-		if exist, err := pathutil.IsPathExists(infoPlistPath); err != nil {
-			return IosArchive{}, fmt.Errorf("failed to check if Info.plist exists at: %s, error: %s", infoPlistPath, err)
-		} else if !exist {
-			return IosArchive{}, fmt.Errorf("Info.plist not exists at: %s", infoPlistPath)
-		}
-		plist, err := plistutil.NewPlistDataFromFile(infoPlistPath)
-		if err != nil {
-			return IosArchive{}, err
-		}
-		infoPlist = plist
+		// infoPlistPath := filepath.Join(path, "Info.plist")
+		// if exist, err := pathutil.IsPathExists(infoPlistPath); err != nil {
+		// 	return IosArchive{}, fmt.Errorf("failed to check if Info.plist exists at: %s, error: %s", infoPlistPath, err)
+		// } else if !exist {
+		// 	return IosArchive{}, fmt.Errorf("Info.plist not exists at: %s", infoPlistPath)
+		// }
+		// plist, err := plistutil.NewPlistDataFromFile(infoPlistPath)
+		// if err != nil {
+		// 	return IosArchive{}, err
+		// }
+		// infoPlist = plist
 	}
 
 	application := IosApplication{}
 	{
 		appPath := ""
-		if appRelativePathToProducts, found := applicationFromPlist(infoPlist); found {
-			appPath = filepath.Join(path, "Products", appRelativePathToProducts)
-		} else {
-			var err error
-			if appPath, err = applicationFromArchive(path); err != nil {
-				return IosArchive{}, err
-			}
+		// if appRelativePathToProducts, found := applicationFromPlist(infoPlist); found {
+		// 	appPath = filepath.Join(path, "Products", appRelativePathToProducts)
+		// } else {
+		var err error
+		if appPath, err = applicationFromArchive(path); err != nil {
+			return IosArchive{}, err
 		}
+		// }
 		if exist, err := pathutil.IsPathExists(appPath); err != nil {
 			return IosArchive{}, fmt.Errorf("failed to check if app exists, path: %s, error: %s", appPath, err)
 		} else if !exist {
